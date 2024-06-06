@@ -11,13 +11,15 @@
         <th>Description</th>
         <th>Max Glycemia</th>
         <th>Min Glycemia</th>
+
+
     </tr>
-    <c:forEach var="consiel" items="${consielList}">
+    <c:forEach var="consiel" items="${conseils}">
         <tr>
-            <td>${consiel.idConsiel}</td>
-            <td>${consiel.description}</td>
-            <td>${consiel.maxGlycemia}</td>
-            <td>${consiel.minGlycemia}</td>
+            <td>${consiel.getIdConsiel()}</td>
+            <td>${consiel.getDescription()}</td>
+            <td>${consiel.getMaxGlycemia()}</td>
+            <td>${consiel.getMinGlycemia()}</td>
         </tr>
     </c:forEach>
 </table>

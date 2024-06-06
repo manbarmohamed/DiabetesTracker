@@ -1,5 +1,6 @@
 package com.model;
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -17,9 +18,8 @@ public class Consiel {
 
     private Integer minGlycemia;
 
-    @ManyToOne
-    @JoinColumn(name = "id_glycemia", nullable = false)
-    private GlycemiaReading glycemiaReading;
+    @OneToMany(mappedBy = "consiel", fetch = FetchType.LAZY)
+    private List<GlycemiaReading> glycemiaReading;
 
 
     public Integer getIdConsiel() {
@@ -54,11 +54,21 @@ public class Consiel {
         this.minGlycemia = minGlycemia;
     }
 
-    public GlycemiaReading getGlycemiaReading() {
+    public List<GlycemiaReading> getGlycemiaReading() {
         return glycemiaReading;
     }
 
-    public void setGlycemiaReading(GlycemiaReading glycemiaReading) {
+    public void setGlycemiaReading(List<GlycemiaReading> glycemiaReading) {
         this.glycemiaReading = glycemiaReading;
+    }
+
+    @Override
+    public String toString() {
+        return "Consiel{" +
+                "idConsiel=" + idConsiel +
+                ", description='" + description + '\'' +
+                ", maxGlycemia=" + maxGlycemia +
+                ", minGlycemia=" + minGlycemia +
+                '}';
     }
 }

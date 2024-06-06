@@ -1,5 +1,7 @@
 package com.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,6 +14,7 @@ public class GlycemiaReading {
     @Column(name = "id_glycemia")
     private Long id;
     @Column(name = "date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     @Column(name = "name_patient")
     private String namePatient;
@@ -19,6 +22,8 @@ public class GlycemiaReading {
     private Double glycemia;
     @Column(name = "heart_beat")
     private Double HeartBeat;
+    @ManyToOne
+    private Consiel consiel;
 
     public GlycemiaReading() {
     }
@@ -71,6 +76,7 @@ public class GlycemiaReading {
                 ", namePatient='" + namePatient + '\'' +
                 ", glycemia=" + glycemia +
                 ", HeartBeat=" + HeartBeat +
+                ", consiel=" + consiel +
                 '}';
     }
 }
