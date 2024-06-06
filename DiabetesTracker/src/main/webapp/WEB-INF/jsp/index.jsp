@@ -27,11 +27,11 @@
 
 <table>
     <tr>
-        <th>Company</th>
-        <th>Contact</th>
-        <th>Country</th>
-        <th>glik</th>
-        <th>terd</th>
+        <th>ID</th>
+        <th>DATE</th>
+        <th>PATIENT NAME</th>
+        <th>GLYCEMIE</th>
+        <th>HEART BEAT</th>
     </tr>
     <c:forEach items="${shows}" var="pr">
         <tr>
