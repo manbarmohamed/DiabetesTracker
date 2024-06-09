@@ -23,4 +23,7 @@ public interface GlycemiaReadingRepository extends JpaRepository<GlycemiaReading
 
     @Query(value = "SELECT * FROM glycemia_reading WHERE YEAR(date) = ?1 AND MONTH(date) = ?2 ORDER BY date", nativeQuery = true)
     List<GlycemiaReading> findByYearAndMonth(int year, int month);
+
+    @Query(value = "select * from glycemia_reading order by date desc limit 1", nativeQuery = true)
+    GlycemiaReading findFirstByOrderByDateDescr();
 }

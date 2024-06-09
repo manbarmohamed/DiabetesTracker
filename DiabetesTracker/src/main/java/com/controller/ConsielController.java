@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -21,8 +22,8 @@ public class ConsielController {
         return "consiel";
     }
 
-    @GetMapping("/details")
-    public String getConsielByGlycemia(@RequestParam("glycemiaValue") Double glycemiaValue, Model model) {
+    @GetMapping("/details/{glycemiaValue}")
+    public String getConsielByGlycemia(@PathVariable("glycemiaValue") Double glycemiaValue, Model model) {
         List<Object> consiel = consielService.getConsielByGlycemia(glycemiaValue);
         model.addAttribute("consiel", consiel);
         System.out.println("details====>>> "+consiel);

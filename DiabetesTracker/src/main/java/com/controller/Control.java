@@ -20,7 +20,7 @@ public class Control {
     private ConsielService consielService;
 
     @GetMapping("/")
-    public String showEtudients(@RequestParam(name = "view", defaultValue = "weekly") String view,
+    public String showHome(@RequestParam(name = "view", defaultValue = "weekly") String view,
                                 @RequestParam(name = "year", required = false) Integer year,
                                 @RequestParam(name = "month", required = false) Integer month,
                                 @RequestParam(name = "week", required = false) Integer week,
@@ -50,6 +50,7 @@ public class Control {
         modelMap.addAttribute("selectedMonth", month);
         modelMap.addAttribute("selectedWeek", week);
         modelMap.addAttribute("shows", service.getAllGlycemiaReadings());
+        modelMap.addAttribute("recenGlycemiaAndHeartBeat",service.recentGlycemiaAndHeartBeat());
         return "home";
     }
 

@@ -67,4 +67,7 @@ public class GlycemiaReadingService {
     public void deleteGlycemiaReading(Long id) {
         glycemiaRepository.deleteById(id);
     }
+    public GlycemiaReading recentGlycemiaAndHeartBeat(){
+        return glycemiaRepository.findFirstByOrderByDateDescr();
+    }
 }

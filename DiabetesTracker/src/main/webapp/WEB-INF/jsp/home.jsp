@@ -33,7 +33,6 @@
 <body>
 <div class="wrapper">
     <div class="body-overlay">
-
     </div>
 
     <!-- Sidebar  -->
@@ -77,8 +76,8 @@
                             </div>
                         </div>
                         <div class="card-content">
-                            <p class="category"><strong>Visits</strong></p>
-                            <h3 class="card-title">70,340</h3>
+                            <p class="category"><strong>Heart Beat</strong></p>
+                            <h3 class="card-title">${recenGlycemiaAndHeartBeat.getHeartBeat()}</h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
@@ -96,8 +95,8 @@
                                     </span>
                         </div>
                         <div class="card-content">
-                            <p class="category"><strong>Orders</strong></p>
-                            <h3 class="card-title">102</h3>
+                            <p class="category"><strong>Glucose</strong></p>
+                            <h3 class="card-title">${recenGlycemiaAndHeartBeat.getGlycemia()}</h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats">
@@ -174,7 +173,7 @@
                                         <td>${pr.getHeartBeat()}</td>
                                         <td>
                                             <a href="delete/${pr.getId()}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                                            <a href="detail/${pr.getGlycemia()}" class="btn btn-success"><i class="fa-solid fa-circle-info"></i></a>
+                                            <a href="details/${pr.getGlycemia()}" class="btn btn-success"><i class="fa-solid fa-circle-info"></i></a>
 
                                         </td>
                                     </tr>
