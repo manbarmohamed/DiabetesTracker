@@ -12,7 +12,15 @@ public interface GlycemiaReadingRepository extends JpaRepository<GlycemiaReading
     @Query(value = "SELECT * FROM glycemia_reading ORDER BY YEAR(date), WEEK(date), date", nativeQuery = true)
     List<GlycemiaReading> findAllGroupedByWeek();
 
-    @Query(value = "SELECT * FROM glycemia_reading ORDER BY YEAR(date), date limit 2", nativeQuery = true)
+    @Query(value = "SELECT * FROM glycemia_reading ORDER BY YEAR(date), MONTH(date), date", nativeQuery = true)
+    List<GlycemiaReading> findAllGroupedByMonth();
+
+    @Query(value = "SELECT * FROM glycemia_reading ORDER BY YEAR(date), date", nativeQuery = true)
     List<GlycemiaReading> findAllGroupedByYear();
 
+    @Query(value = "SELECT * FROM glycemia_reading WHERE YEAR(date) = ?1 AND WEEK(date) = ?2 ORDER BY date", nativeQuery = true)
+    List<GlycemiaReading> findByYearAndWeek(int year, int week);
+
+    @Query(value = "SELECT * FROM glycemia_reading WHERE YEAR(date) = ?1 AND MONTH(date) = ?2 ORDER BY date", nativeQuery = true)
+    List<GlycemiaReading> findByYearAndMonth(int year, int month);
 }

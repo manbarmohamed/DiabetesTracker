@@ -2,44 +2,75 @@ package com.controller;
 
 import com.model.Consiel;
 import com.model.GlycemiaReading;
-import com.model.Medicament;
-import com.model.Ropat;
+import com.service.ConsielService;
 import com.service.GlycemiaReadingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @Controller
 public class Control {
 
     @Autowired
-     GlycemiaReadingService service;
+    private GlycemiaReadingService service;
+    @Autowired
+    private ConsielService consielService;
 
     @GetMapping("/")
-    public String showEtudients(ModelMap modelMap) throws SQLException, ClassNotFoundException {
+    public String showEtudients(@RequestParam(name = "view", defaultValue = "weekly") String view,
+                                @RequestParam(name = "year", required = false) Integer year,
+                                @RequestParam(name = "month", required = false) Integer month,
+                                @RequestParam(name = "week", required = false) Integer week,
+                                ModelMap modelMap) {
 
-        modelMap.addAttribute("shows",service.getAllGlycemiaReadings());
-        System.out.println(service.getAllGlycemiaReadings());
-        return "index";
-    }
-    @GetMapping("/chart")
-    public String getGlycemiaReadings(@RequestParam(name = "view", defaultValue = "weekly") String view, ModelMap model) {
         List<GlycemiaReading> glycemiaReadings;
+
         if ("yearly".equalsIgnoreCase(view)) {
             glycemiaReadings = service.getAllGroupedByYear();
-        } else {
-            glycemiaReadings = service.getAllGroupedByWeek();
+        } else if ("monthly".equalsIgnoreCase(view)) {
+            if (year != null && month != null) {
+                glycemiaReadings = service.getByYearAndMonth(year, month);
+            } else {
+                glycemiaReadings = service.getAllGroupedByMonth();
+            }
+        } else { // default to weekly
+            if (year != null && week != null) {
+                glycemiaReadings = service.getByYearAndWeek(year, week);
+            } else {
+                glycemiaReadings = service.getAllGroupedByWeek();
+            }
         }
-        model.addAttribute("glycemiaReadings", glycemiaReadings);
-        model.addAttribute("viewType", view);
-        return "TEST";
+
+        modelMap.addAttribute("glycemiaReadings", glycemiaReadings);
+        modelMap.addAttribute("viewType", view);
+        modelMap.addAttribute("selectedYear", year);
+        modelMap.addAttribute("selectedMonth", month);
+        modelMap.addAttribute("selectedWeek", week);
+        modelMap.addAttribute("shows", service.getAllGlycemiaReadings());
+        return "home";
     }
 
+    @GetMapping(value = "/delete/{id}")
+    public String deleteGlycemiaReading(@PathVariable("id") Long id) {
+        service.deleteGlycemiaReading(id);
+        return "redirect:/";
+    }
 
+    @GetMapping(value = "add")
+    public String addGlycemiaReading(ModelMap model) {
+        model.addAttribute("glycemiaReading", new GlycemiaReading());
+        model.addAttribute("consiels", consielService.getConsiels());
+        System.out.println(consielService.getConsiels());
+        return "add";
+    }
+    @PostMapping(value = "add")
+    public String saveGlycemiaReading(@ModelAttribute GlycemiaReading glycemiaReading, ModelMap model) {
+        service.saveGlycemiaReading(glycemiaReading);
+        model.addAttribute("message", "Glycemia Reading saved successfully");
+        return "redirect:/"; // assuming you have a result.jsp to show the success message
+    }
 }
+

@@ -6,6 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glycemia Chart</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        canvas {
+            background-color: white;
+            border-radius: 8px;
+            width: 100%;
+            height: 200px;
+        }
+    </style>
 </head>
 <body>
 <h1>Glycemia Chart</h1>
@@ -13,8 +21,15 @@
     <label for="view">Select view type:</label>
     <select id="view" name="view">
         <option value="weekly" ${viewType == 'weekly' ? 'selected' : ''}>Weekly</option>
+        <option value="monthly" ${viewType == 'monthly' ? 'selected' : ''}>Monthly</option>
         <option value="yearly" ${viewType == 'yearly' ? 'selected' : ''}>Yearly</option>
     </select>
+    <label for="year">Year:</label>
+    <input type="number" id="year" name="year" value="${selectedYear}">
+    <label for="month">Month:</label>
+    <input type="number" id="month" name="month" value="${selectedMonth}">
+    <label for="week">Week:</label>
+    <input type="number" id="week" name="week" value="${selectedWeek}">
     <button type="submit">Apply</button>
 </form>
 <canvas id="glycemiaChart" width="400" height="200"></canvas>
@@ -28,19 +43,29 @@
 
     const ctx = document.getElementById('glycemiaChart').getContext('2d');
     const glycemiaChart = new Chart(ctx, {
-        type: 'bar', // or 'bar', 'pie', etc.
+        type: 'doughnut',
         data: {
             labels: labels,
             datasets: [{
                 label: 'Glycemia',
                 data: glycemiaData,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1,
-                fill: false
+                backgroundColor: [
+                    'rgba(86, 209, 86, 0.2)',
+                    'rgba(209, 86, 86, 0.2)',
+                    'rgba(86, 86, 209, 0.2)',
+                    'rgba(209, 209, 86, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(86, 209, 86, 1)',
+                    'rgba(209, 86, 86, 1)',
+                    'rgba(86, 86, 209, 1)',
+                    'rgba(209, 209, 86, 1)'
+                ],
+                borderWidth: 1
             }]
         },
         options: {
-            scales: {
+            /*scales: {
                 x: {
                     display: true,
                     title: {
@@ -55,10 +80,11 @@
                         text: 'Glycemia'
                     }
                 }
-            }
+            }*/
+
+                responsive: true
         }
     });
 </script>
 </body>
 </html>
-

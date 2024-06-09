@@ -30,18 +30,30 @@ public class GlycemiaReadingService {
 
 
 
-
-
     @Transactional(readOnly = true)
     public List<GlycemiaReading> getAllGroupedByWeek() {
         return glycemiaRepository.findAllGroupedByWeek();
     }
+
+    @Transactional(readOnly = true)
+    public List<GlycemiaReading> getAllGroupedByMonth() {
+        return glycemiaRepository.findAllGroupedByMonth();
+    }
+
     @Transactional(readOnly = true)
     public List<GlycemiaReading> getAllGroupedByYear() {
         return glycemiaRepository.findAllGroupedByYear();
     }
 
+    @Transactional(readOnly = true)
+    public List<GlycemiaReading> getByYearAndWeek(int year, int week) {
+        return glycemiaRepository.findByYearAndWeek(year, week);
+    }
 
+    @Transactional(readOnly = true)
+    public List<GlycemiaReading> getByYearAndMonth(int year, int month) {
+        return glycemiaRepository.findByYearAndMonth(year, month);
+    }
 
     public void saveGlycemiaReading(GlycemiaReading reading) {
         glycemiaRepository.save(reading);
