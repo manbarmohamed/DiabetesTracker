@@ -82,7 +82,7 @@
                         <div class="card-footer">
                             <div class="stats">
                                 <i class="material-icons text-info">info</i>
-                                <a href="#pablo">See detailed report</a>
+                                <a href="#pablo">Reccent Heary Beat</a>
                             </div>
                         </div>
                     </div>
@@ -100,7 +100,7 @@
                         </div>
                         <div class="card-footer">
                             <div class="stats">
-                                <i class="material-icons">local_offer</i> Product-wise sales
+                                <i class="material-icons">local_offer</i> Reccent Glycemia
                             </div>
                         </div>
                     </div>
